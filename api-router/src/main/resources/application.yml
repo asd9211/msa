@@ -1,0 +1,26 @@
+server:
+  port: 8800
+
+eureka:
+  client:
+    fetch-registry: true # 유레카 클라이언트 활성화
+    register-with-eureka: true # 유레카 클라이언트 활성화
+    service-url:
+      defaultZone: http://localhost:8761/eureka # 유레카 클라이언트로 등록
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: service-a
+          uri: lb://SERVICE-A # 포워딩할 주소, http://localhost:8000/user 로 들어오면 http://localhost:64412 로 포워딩
+          predicates:
+             Path=/service1/** # 해당 gateway 서버의 /user/**로 들어오는 요은 user-service로 인식하겠다는 조건
+
+        - id: service-b
+          uri: lb://SERVICE-B # 포워딩 할 주소, http://localhost:8000/order 로 들어오면 http://localhost:54412 로 포워딩
+          predicates:
+            - Path=/service2/** # 해당 gateway 서버의 /order/**로 들어오는 요은 order-service로 인식하겠다는 조건    
