@@ -16,11 +16,11 @@ spring:
     gateway:
       routes:
         - id: service-a
-          uri: lb://SERVICE-A # 포워딩할 주소, http://localhost:8000/user 로 들어오면 http://localhost:64412 로 포워딩
+          uri: lb://SERVICE-A # 포워딩할 주소
           predicates:
-             Path=/service1/** # 해당 gateway 서버의 /user/**로 들어오는 요은 user-service로 인식하겠다는 조건
+             Path=/service1/** # 해당 gateway 서버의 /service1/**로 들어오는 요은 service-a로 인식하겠다는 조건
 
         - id: service-b
-          uri: lb://SERVICE-B # 포워딩 할 주소, http://localhost:8000/order 로 들어오면 http://localhost:54412 로 포워딩
+          uri: lb://SERVICE-B # 포워딩 할 주소
           predicates:
-            - Path=/service2/** # 해당 gateway 서버의 /order/**로 들어오는 요은 order-service로 인식하겠다는 조건    
+            - Path=/service2/** # 해당 gateway 서버의 /service2/**로 들어오는 요은 service-b로 인식하겠다는 조건    
